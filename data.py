@@ -27,6 +27,7 @@ class RawImageDataset(Dataset):
 
 
 class AnimeFaces(RawImageDataset):
+    """Wrapper for https://www.kaggle.com/splcher/animefacedataset"""
     img_shape = (3, 64, 64)
 
     def __init__(self, img_dir: str):
