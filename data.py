@@ -9,15 +9,16 @@ from torchvision.io import read_image
 import os
 
 class RawImageDataset(Dataset):
-    def __init__(self, img_dir: str, transform=None, device=None):
+    def __init__(self, img_dir: str, transform=None):
         self.img_filenames = os.listdir(img_dir)
         self.img_dir = img_dir
         self.transform = transform
-        if device is not None:
-            print(f'Reading dataset into {device} memory...', end=' ', flush=True)
-            self.data = [x.to(device) for x in self]
-            print('done')
 
+    def to(self, device: str, log=True):
+        if log: print(f'Reading dataset into {device} memory...', end=' ', flush=True)
+        self.data = [x.to(device) for x in self]
+        if log: print('done')
+        return self
 
     def __len__(self):
         return len(self.img_filenames)
